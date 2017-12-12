@@ -6,15 +6,11 @@ class Post(models.Model):
     author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     text = models.TextField()
-    created_date = models.DateTimeField(
-            default=timezone.now)
-    published_date = models.DateTimeField(
-            blank=True, null=True)
 
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
+    last_updated = models.DateTimeField(default=timezone.now)         #auto_now=False
+    published_date = models.DateTimeField(blank=True, null=True)
+
+    published = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
-
+        return self.title + ' -> ' + str(self.author)

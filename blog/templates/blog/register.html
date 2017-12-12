@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <p>Регистрация</p>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+
+{% endblock %}
+
+#erhbg744b

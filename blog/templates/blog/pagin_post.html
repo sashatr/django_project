@@ -1,0 +1,32 @@
+    {% extends 'blog/base.html' %}
+
+    {% block content %}
+        <b>Recent publications:</b>
+        {% for post in post_pub_p %}
+            <div class="post">
+                <div class="date">
+                    {{ post.published_date }}
+                </div>
+                <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title}}</a></h1>
+                <p>{{ post.text|linebreaksbr }}</p>
+            </div>
+        {% endfor %}
+
+        <center>
+        <div class="pagination">
+            <span class="step-links">
+                {% if post_pub_p.has_previous %}
+                    <a href="?page={{ post_pub_p.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ post_pub_p.number }} of {{ post_pub_p.paginator.num_pages }}
+                </span>
+
+                {% if post_pub_p.has_next %}
+                    <a href="?page={{ post_pub_p.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+        </center>
+    {% endblock %}

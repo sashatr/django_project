@@ -1,27 +1,41 @@
-{% load staticfiles %}
+ {% load staticfiles %}
 
-<html>
-    <head>
-        <title>Sasha.Tr</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-    </head>
+    <html>
+        <head>
+            <title>St.Blog</title>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        </head>
     <body>
+
         <div class="page-header">
+
             {% if user.is_authenticated %}
-                <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+                <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="{% url 'post_no_show' %}" class="top-menu"><span class="glyphicon glyphicon-remove-sign"></span></a>
+                <a class="top-menu" href="{% url 'exit' %}"><span class="glyphicon glyphicon-share"></span></a>
+            {% else  %}
+                <a href="{% url 'register' %}" class="top-menu"><span class="glyphicon glyphicon-registration-mark"></span></a>
+                <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-ok-sign"></span></a>
             {% endif %}
-            <h1><a href="/">My Blog</a></h1>
+
+            <h1><a href="/">St.Blog</a></h1>
+
+            {% if user.is_authenticated %}
+                <h5>Hello, {{ user.username }}.</h5>
+            {% else  %}
+                <h5>You are not login.</h5>
+            {% endif %}
+
         </div>
+
         <div class="content container">
             <div class="row">
                 <div class="col-md-8">
-                    {% block content %}
-                    {% endblock %}
+                {% block content %}
+                {% endblock %}
                 </div>
             </div>
         </div>
     </body>
-</html>
+    </html>
